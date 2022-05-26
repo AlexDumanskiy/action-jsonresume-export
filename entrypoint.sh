@@ -19,7 +19,7 @@ fi
 # remember the sources directory
 workdir=$(pwd)
 
-pushd "$HOME"
+pushd /root
 bindir=$(npm bin)
 
 theme_package=jsonresume-theme-${theme}
