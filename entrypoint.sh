@@ -21,7 +21,7 @@ npm_bin_dir=$(su - node -c "npm bin")
 workdir=$(pwd)
 pushd /home/node
 test -f package.json || su - node -c "npm init -f"
-tmp_output=$(su - node -c mktemp)
+tmp_output=$(su - node -c mktemp)."${format}"
 
 su - node -c "npm install \"${theme_package}\""
 su - node -c "\"${npm_bin_dir}\"/resume export --resume \"${workdir}/${resume}\" --theme ./node_modules/\"${theme_package}\" --format \"${format}\" \"${tmp_output}\""
