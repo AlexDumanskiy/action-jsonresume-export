@@ -16,10 +16,12 @@ EOF
 fi
 
 theme_package=jsonresume-theme-${theme}
-npm_bin_dir=$(npm bin)
+npm_bin_dir=$(su - node -c "npm bin")
 
-#pushd $(dirname $resume)
+workdir=$(pwd)
+pushd /home/node
 test -f package.json || npm init -f
-npm install "${theme_package}"
+su - node -c "npm install \"${theme_package}\""
 
-"${npm_bin_dir}"/resume export --resume "${resume}" --theme ./node_modules/"${theme_package}" --format "${format}" "${output}"
+su - node -c "\"${npm_bin_dir}\"/resume export --resume \"${workdir}/${resume}\" --theme ./node_modules/\"${theme_package}\" --format \"${format}\" \"${output}\""
+cp "${output}" "${workdir}/"

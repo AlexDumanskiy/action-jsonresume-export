@@ -30,5 +30,6 @@ RUN npm init -y &&  \
     npm i resume-cli \
     && mkdir -p /home/node/Downloads
 
-USER node
+# Github actions run docker containers as root
+USER root
 ENTRYPOINT [ "dumb-init", "--", "/entrypoint.sh" ]
