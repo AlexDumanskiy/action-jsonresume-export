@@ -18,7 +18,7 @@ inputs:
       File path of the resume in JSONResume format
     required: false
     default: 'resume.json'
-  resume_format:
+  output_format:
     description: |
       Output file format for exported file - html or pdf.
     required: false
@@ -34,5 +34,5 @@ runs:
   args:
     - ${{ inputs.theme }}
     - ${{ inputs.resume_filepath }}
-    - ${{ inputs.resume_format }}
+    - ${{ inputs.output_format }}
     - ${{ inputs.output_filepath }}
