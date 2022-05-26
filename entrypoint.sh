@@ -18,8 +18,9 @@ fi
 
 workdir=$(pwd)
 tmpdir=$(mktemp -d)
+bindir=$(npm bin)
 pushd "$tmpdir"
 npm init -f
 theme_package=jsonresume-theme-${theme}
 npm install "${theme_package}"
-"$(npm bin)"/resume export --resume "${workdir}/${resume}" --theme ./node_modules/"${theme_package}" --format "${format}" "${workdir}/${output}"
+"${bindir}"/resume export --resume "${workdir}/${resume}" --theme ./node_modules/"${theme_package}" --format "${format}" "${workdir}/${output}"
