@@ -17,7 +17,7 @@ RUN apt-get update \
 
 RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_amd64.deb \
     && dpkg -i dumb-init_*.deb
-RUN npm i -g resume-cli
+RUN npm i resume-cli
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+rx /entrypoint.sh
