@@ -18,15 +18,21 @@ inputs:
       File path of the resume in JSONResume format
     required: false
     default: 'resume.json'
+  resume_format:
+    description: |
+      Output file format for exported file - html or pdf.
+    required: false
+    default: 'pdf'
   output_filepath:
     description: |
       Output file path for exported HTML file.
     required: false
-    default: 'index.html'
+    default: 'resume.pdf'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.theme }}
     - ${{ inputs.resume_filepath }}
+    - ${{ inputs.resume_format }}
     - ${{ inputs.output_filepath }}

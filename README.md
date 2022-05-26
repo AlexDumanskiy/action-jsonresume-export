@@ -1,6 +1,6 @@
 # GitHub Action for exporting JSONResume
 
-This action exports your resume in [JSONResume](https://jsonresume.org/) to **HTML**.
+This action exports your resume in [JSONResume](https://jsonresume.org/) to **HTML** or **PDF**.
 
 This can be combined with other actions to publish your resume as a Github page.
 
@@ -8,11 +8,12 @@ This can be combined with other actions to publish your resume as a Github page.
 
 ## Inputs
 
-| Name | Description | Default |
-| --- | --- | --- |
-| theme | JSONResume theme name. See https://jsonresume.org/themes/ | `flat` |
-| resume_filepath | file path to your resume in JSONResume format | `resume.json` |
-| output_filepath | output file path | `index.html` |
+| Name            | Description                                               | Default       |
+| ---             | ---                                                       | ---           |
+| theme           | JSONResume theme name. See https://jsonresume.org/themes/ | `flat`        |
+| resume_filepath | file path to your resume in JSONResume format             | `resume.json` |
+| resume_format   | output file format - pdf or html                          | `pdf`         |
+| output_filepath | output file path                                          | `index.pdf`   |
 
 ## Example Workflows
 
@@ -43,11 +44,12 @@ jobs:
     needs: check_run
     steps:
       - uses: actions/checkout@v2
-      - uses: kelvintaywl/action-jsonresume-export@v1
+      - uses: AlexDumanskiy/action-jsonresume-export@v1
         name: Export resume as HTML
         with:
           theme: macchiato
           resume_filepath: resume.json
+          output_format: html
           # modifies the index.html in-place
           output_filepath: docs/index.html
       - name: Commit published HTML
@@ -70,16 +72,7 @@ jobs:
           branch: ${{ github.ref }}
 ```
 
-## Why?
 
-Good question indeed!
+## Thanks
+This repo is a fork of https://github.com/kelvintaywl/action-jsonresume-export modified to generate PDF files as well as HTML.
 
-In fact, you may already noticed JSONResume provides a [hassle-free hosting service to export and collate your resume already](https://jsonresume.org/getting-started/).
-
-However, I made this action because:
-
-1. Using a specific theme that is not supported [requires the JSONResume team to add the theme as dependency to their solutions](https://github.com/jsonresume/registry-functions/issues/7); I wanted to keep the export dependency lean with just the theme I need for my case.
-
-2. This solution allow me to centrally keep a resume in both the JSON format as well as publishing it in HTML as a GitHub page easily.
-
-3. I wanted to learn more about creating and writing Github Actions :robot:
