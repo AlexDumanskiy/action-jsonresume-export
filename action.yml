@@ -15,7 +15,7 @@ inputs:
     default: 'flat'
   resume_filepath:
     description: |
-      File path of the resume in JSONResume format
+      File path of the resume in JSONResume format.
     required: false
     default: 'resume.json'
   output_format:
