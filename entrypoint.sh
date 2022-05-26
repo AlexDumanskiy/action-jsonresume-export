@@ -4,6 +4,7 @@ theme=$1
 resume=$2
 format=$3
 output=$4
+export RESUME_PUPPETEER_NO_SANDBOX=1
 
 if [ -z "$output" ]; then
     cat<<EOF
@@ -15,15 +16,10 @@ EOF
     exit 1
 fi
 
-theme_package=jsonresume-theme-${theme}
-npm_bin_dir=$(su - node -c "npm bin")
-
 workdir=$(pwd)
-pushd /home/node
-test -f package.json || su - node -c "npm init -f"
-tmp_output=$(su - node -c mktemp)."${format}"
-
-su - node -c "npm install \"${theme_package}\""
-export RESUME_PUPPETEER_NO_SANDBOX=1
-su - node -c "\"${npm_bin_dir}\"/resume export --resume \"${workdir}/${resume}\" --theme ./node_modules/\"${theme_package}\" --format \"${format}\" \"${tmp_output}\""
-cp "${tmp_output}" "${workdir}/${output}"
+tmpdir=$(mktemp -d)
+pushd "$tmpdir"
+npm init -f
+theme_package=jsonresume-theme-${theme}
+npm install "${theme_package}"
+"$(npm bin)"/resume export --resume "${workdir}/${resume}" --theme ./node_modules/"${theme_package}" --format "${format}" "${workdir}/${output}"

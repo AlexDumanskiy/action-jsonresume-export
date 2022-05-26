@@ -15,21 +15,11 @@ RUN apt-get update \
         --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_amd64.deb \
+    && dpkg -i dumb-init_*.deb
+RUN npm i -g resume-cli
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+rx /entrypoint.sh
 
-RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_amd64.deb
-RUN dpkg -i dumb-init_*.deb
-
-# Run everything after as non-privileged user and install npm packages localy
-USER node
-WORKDIR /home/node
-
-RUN npm init -y &&  \
-    npm i resume-cli \
-    && mkdir -p /home/node/Downloads
-
-# Github actions run docker containers as root
-USER root
 ENTRYPOINT [ "dumb-init", "--", "/entrypoint.sh" ]
