@@ -16,11 +16,12 @@ EOF
     exit 1
 fi
 
+# remember the sources directory
 workdir=$(pwd)
-tmpdir=$(mktemp -d)
+
+pushd "$HOME"
 bindir=$(npm bin)
-pushd "$tmpdir"
-npm init -f
+
 theme_package=jsonresume-theme-${theme}
 npm install "${theme_package}"
 "${bindir}"/resume export --resume "${workdir}/${resume}" --theme ./node_modules/"${theme_package}" --format "${format}" "${workdir}/${output}"
