@@ -8,8 +8,7 @@ inputs:
   theme:
     description: |
       JSONResume theme name.
-      Assumes the theme package would be found 
-      as `jsonresume-theme-{theme}` in NPM.
+      Assumes the theme package `jsonresume-theme-{theme}` exists in NPM.
       You can search for themes at https://npmsearch.com/?q=jsonresume-theme
     required: true
     default: 'flat'
@@ -30,7 +29,7 @@ inputs:
     default: 'resume.pdf'
 runs:
   using: 'docker'
-  image: 'docker://AlexDumanskiy/action-jsonresume-image:v2'
+  image: 'docker://alexdumanskiy/action-jsonresume-image:v2'
   args:
     - ${{ inputs.theme }}
     - ${{ inputs.resume_filepath }}
