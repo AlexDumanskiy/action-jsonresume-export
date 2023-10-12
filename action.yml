@@ -29,7 +29,7 @@ inputs:
     default: 'resume.pdf'
 runs:
   using: 'docker'
-  image: 'docker://alexdumanskiy/action-jsonresume-image:v2'
+  image: 'docker://alexdumanskiy/action-jsonresume-image:main'
   args:
     - ${{ inputs.theme }}
     - ${{ inputs.resume_filepath }}
