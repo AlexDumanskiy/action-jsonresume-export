@@ -20,17 +20,17 @@ inputs:
     default: 'resume.json'
   output_format:
     description: |
-      Output file format for exported file - html or pdf.
+      Output file format for exported file - HTML or PDF.
     required: false
     default: 'pdf'
   output_filepath:
     description: |
-      Output file path for exported HTML file.
+      Output file path for exported HTML or PDF file.
     required: false
     default: 'resume.pdf'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'dumanskiy/action-jsonresume-image:v1'
   args:
     - ${{ inputs.theme }}
     - ${{ inputs.resume_filepath }}
